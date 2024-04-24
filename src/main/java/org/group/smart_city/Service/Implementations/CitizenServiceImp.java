@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.group.smart_city.Exceptions.AppException;
 import org.group.smart_city.Response.ErrorMessages;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -60,8 +61,6 @@ public class CitizenServiceImp implements CitizenService {
         return citizenRepository.findById(_id).orElseThrow(() ->
                 new AppException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage()));
     }
-
-
 
 }
 

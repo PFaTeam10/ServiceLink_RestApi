@@ -17,7 +17,7 @@ public class ModelMapperConfig {
                 .addMapping(Employee::getEmail, EmployeeDto::setEmail)
                 .addMapping(Employee::getFirstName, EmployeeDto::setFirstName)
                 .addMapping(Employee::getPhoneNumber, EmployeeDto::setPhoneNumber);
-
+        
         return modelMapper;
     }
 }

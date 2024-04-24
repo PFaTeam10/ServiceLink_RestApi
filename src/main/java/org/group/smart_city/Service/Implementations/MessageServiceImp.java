@@ -2,6 +2,7 @@ package org.group.smart_city.Service.Implementations;
 import org.group.smart_city.Dto.MessageDto;
 import org.group.smart_city.Entities.Group;
 import org.group.smart_city.Entities.Message;
+import org.group.smart_city.Exceptions.AppException;
 import org.group.smart_city.Response.ApiResponse;
 import org.group.smart_city.Respository.MessageRepository;
 import org.group.smart_city.Service.Interfaces.MessageService;

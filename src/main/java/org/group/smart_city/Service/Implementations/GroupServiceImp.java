@@ -9,7 +9,6 @@ import org.group.smart_city.Respository.CitizenRepository;
 import org.group.smart_city.Respository.GroupRepository;
 import org.group.smart_city.Service.Interfaces.CitizenService;
 import org.group.smart_city.Service.Interfaces.GroupService;
-import org.mindrot.jbcrypt.BCrypt;
 import org.modelmapper.ModelMapper;
 import org.group.smart_city.Exceptions.AppException;
 import org.group.smart_city.Response.ErrorMessages;
