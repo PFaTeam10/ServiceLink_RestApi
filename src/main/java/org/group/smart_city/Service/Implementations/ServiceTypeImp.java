@@ -1,10 +1,14 @@
 package org.group.smart_city.Service.Implementations;
 
+import lombok.Data;
 import org.group.smart_city.Dto.ReclamationDto;
+import org.group.smart_city.Dto.ServiceTypeDto;
 import org.group.smart_city.Entities.Reclamation;
+import org.group.smart_city.Entities.ServiceType;
 import org.group.smart_city.Exceptions.AppException;
 import org.group.smart_city.Response.ErrorMessages;
 import org.group.smart_city.Respository.ReclamationRepository;
+import org.group.smart_city.Respository.ServiceTypeRepository;
 import org.group.smart_city.Service.Interfaces.ServiceTypeService;
 import org.group.smart_city.Utils.JwtUtil;
 import org.modelmapper.ModelMapper;
@@ -15,43 +19,42 @@ import org.springframework.stereotype.Service;
 
 public class ServiceTypeImp implements ServiceTypeService {
     @Autowired
-    ReclamationRepository reclamationRepository;
+    ServiceTypeRepository serviceTypeRepository;
     @Autowired
     JwtUtil jwtUtil;
     @Autowired
     ModelMapper modelMapper;
     @Override
-    public Reclamation create(ReclamationDto reclamationDto) {
-        if (reclamationDto == null) {
-            throw new IllegalArgumentException("reclamationDto must not be null");
+    public ServiceType create(ServiceTypeDto serviceTypeDto) {
+        if (serviceTypeDto == null) {
+            throw new IllegalArgumentException("serviceTypeDto must not be null");
         }
-        Reclamation reclamation = modelMapper.map(reclamationDto, Reclamation.class);
-        if (reclamation == null) {
-            throw new AppException("Mapping from reclamationDto to reclamation failed");
+        ServiceType serviceType = modelMapper.map(serviceTypeDto, ServiceType.class);
+        if (serviceType == null) {
+            throw new AppException("Mapping from serviceTypeDto to ServiceType failed");
         }
 
-        return reclamationRepository.save(reclamation);
+        return serviceTypeRepository.save(serviceType);
     }
 
     @Override
-    public Reclamation getById(String id) {
-        return reclamationRepository.findById(id).orElseThrow(()
+    public ServiceType getById(String id) {
+        return serviceTypeRepository.findById(id).orElseThrow(()
                 ->  new AppException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage()));
     }
 
     @Override
-    public Reclamation Update(String id, ReclamationDto reclamationDto) {
-        Reclamation reclamation = reclamationRepository.findById(id)
+    public ServiceType Update(String id, ServiceTypeDto serviceTypeDto) {
+        ServiceType serviceType = serviceTypeRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage()));
 
-        // Update project object with fields from projectDto
-        modelMapper.map(reclamationDto, reclamation);
-        return reclamation;
+        modelMapper.map(serviceTypeDto, serviceType);
+        return serviceType;
     }
 
     @Override
     public void Delete(String id) {
         if(this.getById(id) != null)
-            reclamationRepository.deleteById(id);
+            serviceTypeRepository.deleteById(id);
     }
 }

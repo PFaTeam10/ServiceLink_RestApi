@@ -7,6 +7,7 @@ import org.group.smart_city.Entities.ServiceProvider;
 import org.group.smart_city.Exceptions.AppException;
 import org.group.smart_city.Response.ErrorMessages;
 import org.group.smart_city.Respository.ReclamationRepository;
+import org.group.smart_city.Respository.ServiceProviderRepository;
 import org.group.smart_city.Service.Interfaces.ServiceProviderService;
 import org.group.smart_city.Utils.JwtUtil;
 import org.modelmapper.ModelMapper;
@@ -18,43 +19,43 @@ import org.springframework.stereotype.Service;
 public class ServiceProviderImp implements ServiceProviderService {
 
     @Autowired
-    ReclamationRepository reclamationRepository;
+    ServiceProviderRepository serviceProviderRepository;
     @Autowired
     JwtUtil jwtUtil;
     @Autowired
     ModelMapper modelMapper;
     @Override
     public ServiceProvider create(ServiceProviderDto serviceProviderDto) {
-        if (reclamationDto == null) {
+        if (serviceProviderDto == null) {
             throw new IllegalArgumentException("serviceProviderDto must not be null");
         }
-        ServiceProvider serviceProvider = modelMapper.map(reclamationDto, Reclamation.class);
-        if (reclamation == null) {
+        ServiceProvider serviceProvider = modelMapper.map(serviceProviderDto, ServiceProvider.class);
+        if (serviceProvider == null) {
             throw new AppException("Mapping from serviceProviderDto to serviceProvider failed");
         }
 
-        return reclamationRepository.save(reclamation);
+        return serviceProviderRepository.save(serviceProvider);
     }
 
     @Override
-    public Reclamation getById(String id) {
-        return reclamationRepository.findById(id).orElseThrow(()
+    public ServiceProvider getById(String id) {
+        return serviceProviderRepository.findById(id).orElseThrow(()
                 ->  new AppException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage()));
     }
 
     @Override
-    public Reclamation Update(String id, ReclamationDto reclamationDto) {
-        Reclamation reclamation = reclamationRepository.findById(id)
+    public ServiceProvider Update(String id, ServiceProviderDto serviceProviderDto) {
+        ServiceProvider serviceProvider = serviceProviderRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage()));
 
         // Update project object with fields from projectDto
-        modelMapper.map(reclamationDto, reclamation);
-        return reclamation;
+        modelMapper.map(serviceProviderDto, serviceProvider);
+        return serviceProvider;
     }
 
     @Override
     public void Delete(String id) {
         if(this.getById(id) != null)
-            reclamationRepository.deleteById(id);
+            serviceProviderRepository.deleteById(id);
     }
 }
