@@ -2,7 +2,6 @@ package org.group.smart_city.Service.Interfaces;
 
 import org.group.smart_city.Dto.EmployeeDto;
 import org.group.smart_city.Entities.Employee;
-import java.util.List;
 
 public interface EmployeeService {
     Employee create(EmployeeDto employeeDto);
