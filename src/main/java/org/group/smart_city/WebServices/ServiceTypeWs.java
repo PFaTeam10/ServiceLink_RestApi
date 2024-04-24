@@ -19,7 +19,6 @@ public class ServiceTypeWs {
 
     @Autowired
     JwtUtil jwtUtil;
-
     @PostMapping("/create")
     public ResponseEntity<ApiResponse<ServiceType>> create(@RequestBody EmployeeDto employeeDto, @RequestHeader("Authorization") String token) {
         if(!jwtUtil.validateToken(token)){
