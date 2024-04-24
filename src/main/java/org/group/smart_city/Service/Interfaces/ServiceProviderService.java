@@ -1,8 +1,6 @@
 package org.group.smart_city.Service.Interfaces;
 
-import org.group.smart_city.Dto.EmployeeDto;
 import org.group.smart_city.Dto.ServiceProviderDto;
-import org.group.smart_city.Entities.Employee;
 import org.group.smart_city.Entities.ServiceProvider;
 
 public interface ServiceProviderService {

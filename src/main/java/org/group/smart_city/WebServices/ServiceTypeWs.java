@@ -2,7 +2,6 @@ package org.group.smart_city.WebServices;
 
 import org.group.smart_city.Dto.EmployeeDto;
 import org.group.smart_city.Dto.ServiceTypeDto;
-import org.group.smart_city.Entities.Employee;
 import org.group.smart_city.Entities.ServiceType;
 import org.group.smart_city.Response.ApiResponse;
 import org.group.smart_city.Service.Implementations.ServiceTypeImp;
