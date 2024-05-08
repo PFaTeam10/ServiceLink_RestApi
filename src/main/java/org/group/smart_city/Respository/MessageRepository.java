@@ -8,7 +8,8 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
 
 public interface MessageRepository extends MongoRepository<Message,String> {
-    public List<Message> findAllByGroup(Group group);
+    public List<Message> getMessagesByGroup(Group group);
 
-    public Message findMessageById(String id);
+    public List<Message> findAllByCitizen(Citizen citizen);
+
 }

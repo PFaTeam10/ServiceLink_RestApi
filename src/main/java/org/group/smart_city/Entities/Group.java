@@ -16,5 +16,5 @@ public class Group {
     private ServiceProvider serviceProvider;
     private String name;
     private String description;
-    private Date creationDate;
+
 }
