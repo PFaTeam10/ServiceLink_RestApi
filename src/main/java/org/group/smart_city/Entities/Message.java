@@ -22,5 +22,4 @@ public class Message {
     private Group group;
     private String message;
     private Date timestamp;
-
 }

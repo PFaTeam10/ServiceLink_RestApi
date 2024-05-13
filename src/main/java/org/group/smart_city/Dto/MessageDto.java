@@ -17,10 +17,7 @@ import java.util.Date;
 @ToString
 public class MessageDto {
 
-
-
     private Citizen citizen;
-
     private Group group;
     private String message;
     private Date timestamp;
