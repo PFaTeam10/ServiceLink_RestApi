@@ -1,7 +1,9 @@
 package org.group.smart_city.WebServices;
 
+import org.group.smart_city.Dto.GroupDto;
 import org.group.smart_city.Dto.MessageDto;
 import org.group.smart_city.Entities.Message;
+import org.group.smart_city.Service.Interfaces.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -9,18 +11,32 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
+import java.util.List;
+
 @Controller
 public class ChatController {
 
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
+    @Autowired
+    private MessageService messageService;
 
     @MessageMapping("/message")
     @SendTo("/chatroom/public")
-    public MessageDto receiveMessage(@Payload MessageDto messageDto){
+    public Message receiveMessage(@Payload MessageDto messageDto){
         System.out.println("Payload  public : "+messageDto.toString());
+        if(messageDto.getMessage()!=null){
+            Message save = messageService.Create(messageDto);
+            return save;
+        }
+        return new Message();
 
-        return messageDto;
+    }
+    @MessageMapping("/join")
+    public List<Message> join(@Payload GroupDto groupDto){
+
+            List<Message> messageList = messageService.GetAllByGroup(groupDto);
+            return messageList;
     }
 
     @MessageMapping("/private-message")

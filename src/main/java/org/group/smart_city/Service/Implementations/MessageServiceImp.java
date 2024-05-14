@@ -1,5 +1,6 @@
 package org.group.smart_city.Service.Implementations;
 import org.group.smart_city.Dto.CitizenDto;
+import org.group.smart_city.Dto.GroupDto;
 import org.group.smart_city.Dto.MessageDto;
 import org.group.smart_city.Entities.Citizen;
 import org.group.smart_city.Entities.Group;
@@ -53,12 +54,13 @@ public class MessageServiceImp implements MessageService {
         return messageRepository.findAllByCitizen(citizen);
     }
 
+
     @Override
-    public List<Message> GetAllByGroup(Group group) {
-        if (group == null) {
+    public List<Message> GetAllByGroup(GroupDto groupDto)  {
+        if (groupDto == null) {
             throw new AppException("group is null");
         }
-        return messageRepository.getMessagesByGroup(group);
+        return messageRepository.getMessagesByGroup(groupDto);
     }
 
 

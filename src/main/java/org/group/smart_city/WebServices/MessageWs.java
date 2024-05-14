@@ -23,6 +23,7 @@ import java.util.List;
 public class MessageWs {
     @Autowired
     private MessageService messageService;
+
     @Autowired
     private GroupService groupService;
     @Autowired
