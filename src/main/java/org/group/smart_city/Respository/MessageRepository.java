@@ -1,5 +1,6 @@
 package org.group.smart_city.Respository;
 
+import org.group.smart_city.Dto.GroupDto;
 import org.group.smart_city.Entities.Citizen;
 import org.group.smart_city.Entities.Group;
 import org.group.smart_city.Entities.Message;

@@ -56,11 +56,12 @@ public class MessageServiceImp implements MessageService {
 
 
     @Override
-    public List<Message> GetAllByGroup(GroupDto groupDto)  {
-        if (groupDto == null) {
+    public List<Message> GetAllByGroup(Group group)  {
+        if (group == null) {
             throw new AppException("group is null");
         }
-        return messageRepository.getMessagesByGroup(groupDto);
+
+        return messageRepository.getMessagesByGroup(group);
     }
 
 

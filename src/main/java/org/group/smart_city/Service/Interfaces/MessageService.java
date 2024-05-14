@@ -15,5 +15,5 @@ public interface MessageService {
     public Message Create(MessageDto messageDto);
     public List<Message> GetAllByCitizen(Citizen citizen);
 
-    List<Message> GetAllByGroup(GroupDto groupDto);
+    List<Message> GetAllByGroup(Group group);
 }
