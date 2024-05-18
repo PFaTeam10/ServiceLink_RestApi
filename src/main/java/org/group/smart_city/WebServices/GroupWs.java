@@ -20,13 +20,13 @@ public class GroupWs {
     @Autowired
     JwtUtil jwtUtil;
     @PostMapping("/create")
-    public ResponseEntity<ApiResponse<Group>> SignUp(@RequestBody GroupDto group, @RequestHeader("Authorization") String token) {
+    public ResponseEntity<ApiResponse<Group>> create(@RequestBody GroupDto group, @RequestHeader("Authorization") String token) {
         if(!jwtUtil.validateToken(token)){
             ApiResponse<Group> notFoundResponse = new ApiResponse<>(401, "UnAuthorized", null);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(notFoundResponse);
         }
         Group save = groupService.Create(group);
-        ApiResponse<Group> response = new ApiResponse<>(200, "Citizen Created successfully", save);
+        ApiResponse<Group> response = new ApiResponse<>(200, "group Created successfully", save);
         return ResponseEntity.ok(response);
     }
 
@@ -42,11 +42,8 @@ public class GroupWs {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ApiResponse<String>> Delete(@PathVariable String id,@RequestHeader("Authorization") String token) {
-        if(!jwtUtil.validateToken(token)){
-            ApiResponse<String> notFoundResponse = new ApiResponse<>(404, "UnAuthorized", null);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(notFoundResponse);
-        }
+    public ResponseEntity<ApiResponse<String>> Delete(@PathVariable String id) {
+
         groupService.Delete(id);
         ApiResponse<String> apiResponse = new ApiResponse<>(200, "Citizen deleted successfully", id);
         return ResponseEntity.ok(apiResponse);
