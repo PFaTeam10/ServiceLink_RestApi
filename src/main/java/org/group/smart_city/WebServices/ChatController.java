@@ -4,7 +4,9 @@ import org.group.smart_city.Dto.GroupDto;
 import org.group.smart_city.Dto.MessageDto;
 import org.group.smart_city.Entities.Group;
 import org.group.smart_city.Entities.Message;
+import org.group.smart_city.Entities.ServiceProvider;
 import org.group.smart_city.Service.Interfaces.MessageService;
+import org.group.smart_city.Service.Interfaces.ServiceProviderService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -23,23 +25,26 @@ public class ChatController {
     @Autowired
     private MessageService messageService;
     @Autowired
+    private ServiceProviderService serviceProviderService;
+    @Autowired
     ModelMapper modelMapper = new ModelMapper();
     @MessageMapping("/message")
     @SendTo("/chatroom/public")
     public Message receiveMessage(@Payload MessageDto messageDto){
-        System.out.println("Payload  public : "+messageDto.toString());
+
         if(messageDto.getMessage()!=null){
             Message save = messageService.Create(messageDto);
             return save;
         }
-        return new Message();
-
+        return null;
     }
     @MessageMapping("/join")
-    public List<Message> join(@Payload GroupDto groupDto){
-        Group grp = modelMapper.map(groupDto, Group.class);
-            List<Message> messageList = messageService.GetAllByGroup(grp);
-            return messageList;
+    @SendTo("/chatroom/public")
+    public List<Message> join(@Payload String id){
+        ServiceProvider serviceProvider = serviceProviderService.getById(id);
+        List<Message> messageList = messageService.GetAllByServiceProvider(serviceProvider);
+
+        return messageList;
     }
 
     @MessageMapping("/private-message")

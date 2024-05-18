@@ -19,7 +19,7 @@ public class Message {
     @DBRef
     private Citizen citizen;
     @DBRef
-    private Group group;
+    private ServiceProvider serviceProvider;
     private String message;
     private Date timestamp;
 }

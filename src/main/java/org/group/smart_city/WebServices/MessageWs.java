@@ -6,10 +6,12 @@ import org.group.smart_city.Dto.MessageDto;
 import org.group.smart_city.Entities.Citizen;
 import org.group.smart_city.Entities.Group;
 import org.group.smart_city.Entities.Message;
+import org.group.smart_city.Entities.ServiceProvider;
 import org.group.smart_city.Response.ApiResponse;
 import org.group.smart_city.Service.Interfaces.CitizenService;
 import org.group.smart_city.Service.Interfaces.GroupService;
 import org.group.smart_city.Service.Interfaces.MessageService;
+import org.group.smart_city.Service.Interfaces.ServiceProviderService;
 import org.group.smart_city.Utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,7 +27,7 @@ public class MessageWs {
     private MessageService messageService;
 
     @Autowired
-    private GroupService groupService;
+    private ServiceProviderService serviceProviderService;
     @Autowired
     private CitizenService citizenService;
 
@@ -57,7 +59,7 @@ public class MessageWs {
         return ResponseEntity.ok(apiResponse);
     }
 
-    @GetMapping("/group/{id}")
+    @GetMapping("/serviceprovider/{id}")
     public ResponseEntity<ApiResponse<List<Message>>> GetMessagesByIdGroup(@PathVariable String id, @RequestHeader("Authorization") String token) {
 
 
@@ -66,11 +68,11 @@ public class MessageWs {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(notFoundResponse);
         }
         System.out.print("id"+id);
-        Group group = groupService.GetById(id);
+        ServiceProvider serviceProvider = serviceProviderService.getById(id);
 
-        System.out.print("group"+group.getName());
+        System.out.print("serviceProvider : "+serviceProvider.getName());
 
-        List<Message> messageList = messageService.GetAllByGroup(group);
+        List<Message> messageList = messageService.GetAllByServiceProvider(serviceProvider);
         ApiResponse<List<Message> > apiResponse = new ApiResponse<>(200, "Messages found", messageList);
         return ResponseEntity.ok(apiResponse);
     }

@@ -6,14 +6,14 @@ import org.group.smart_city.Dto.MessageDto;
 import org.group.smart_city.Entities.Citizen;
 import org.group.smart_city.Entities.Group;
 import org.group.smart_city.Entities.Message;
+import org.group.smart_city.Entities.ServiceProvider;
 
 import java.util.List;
 
 public interface MessageService {
 
-    public List<Message> GetByIdGroup(Group group);
     public Message Create(MessageDto messageDto);
     public List<Message> GetAllByCitizen(Citizen citizen);
 
-    List<Message> GetAllByGroup(Group group);
+    List<Message> GetAllByServiceProvider(ServiceProvider serviceProvider);
 }

@@ -5,6 +5,7 @@ import org.group.smart_city.Dto.MessageDto;
 import org.group.smart_city.Entities.Citizen;
 import org.group.smart_city.Entities.Group;
 import org.group.smart_city.Entities.Message;
+import org.group.smart_city.Entities.ServiceProvider;
 import org.group.smart_city.Exceptions.AppException;
 import org.group.smart_city.Response.ApiResponse;
 import org.group.smart_city.Respository.MessageRepository;
@@ -26,13 +27,14 @@ public class MessageServiceImp implements MessageService {
     ModelMapper modelMapper = new ModelMapper();
 
 
-    public List<Message> GetByIdGroup(Group group) {
+    public List<Message> GetByServiceProvider(ServiceProvider serviceProvider) {
         // Retrieve Education from the database
-        return messageRepository.getMessagesByGroup(group);
+        return messageRepository.getMessagesByServiceProvider(serviceProvider);
     }
 
 
-//    public Message Create(MessageDto messageDto) {
+
+    //    public Message Create(MessageDto messageDto) {
 //        if (messageDto == null) {
 //            throw new IllegalArgumentException("messageDto must not be null");
 //        }
@@ -56,13 +58,11 @@ public class MessageServiceImp implements MessageService {
 
 
     @Override
-    public List<Message> GetAllByGroup(Group group)  {
-        if (group == null) {
-            throw new AppException("group is null");
+    public List<Message> GetAllByServiceProvider(ServiceProvider serviceProvider)  {
+        if (serviceProvider == null) {
+            throw new AppException("serviceProvider is null");
         }
-
-        return messageRepository.getMessagesByGroup(group);
+        return messageRepository.getMessagesByServiceProvider(serviceProvider);
     }
-
 
 }
