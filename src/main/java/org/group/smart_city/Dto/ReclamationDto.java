@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.group.smart_city.Entities.ServiceProvider;
 
 import java.util.List;
 
@@ -19,4 +20,5 @@ public class ReclamationDto {
     private String localization;
     private int priority;
     private List<String> media;
+    private ServiceProvider serviceProvider;
 }
