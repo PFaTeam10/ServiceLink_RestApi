@@ -1,9 +1,13 @@
 package org.group.smart_city.WebServices;
 
+import org.group.smart_city.Dto.CitizenDto;
 import org.group.smart_city.Dto.ServiceProviderDto;
+import org.group.smart_city.Entities.Citizen;
 import org.group.smart_city.Entities.ServiceProvider;
 import org.group.smart_city.Response.ApiResponse;
 import org.group.smart_city.Service.Implementations.ServiceProviderImp;
+import org.group.smart_city.Service.Interfaces.CitizenService;
+import org.group.smart_city.Service.Interfaces.ServiceProviderService;
 import org.group.smart_city.Utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +24,25 @@ public class ServiceProviderWs {
 
     @Autowired
     JwtUtil jwtUtil;
+
+    @Autowired
+    private ServiceProviderService serviceProviderService;
+
+    @PostMapping("/signup")
+    public ResponseEntity<ApiResponse<ServiceProvider>> SignUp(@RequestBody ServiceProviderDto serviceProviderDto) {
+        ServiceProvider save = serviceProviderService.Create(serviceProviderDto);
+        ApiResponse<ServiceProvider> response = new ApiResponse<>(200, "ServiceProviderDto Created successfully", save);
+        return ResponseEntity.ok(response);
+    }
+    @PostMapping("/signin")
+    public ResponseEntity<ApiResponse<String>> Login(@RequestBody ServiceProviderDto serviceProviderDto) {
+        ServiceProvider se = serviceProviderService.Authenticate(serviceProviderDto);
+        System.out.println("serviceProviderDto : " + serviceProviderDto);
+        String token = jwtUtil.generateToken(serviceProviderDto.getId());
+        System.out.println("generated : " + token);
+        ApiResponse<String> response = new ApiResponse<>(200, "serviceProviderDto Logged in successfully", token);
+        return ResponseEntity.ok(response);
+    }
 
     @PostMapping("/create")
     public ResponseEntity<ApiResponse<ServiceProvider>> create(@RequestBody ServiceProviderDto serviceProviderDto, @RequestHeader("Authorization") String token) {
