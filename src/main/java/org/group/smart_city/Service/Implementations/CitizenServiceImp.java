@@ -20,6 +20,7 @@ public class CitizenServiceImp implements CitizenService {
     @Autowired
     ModelMapper modelMapper = new ModelMapper();
     public Citizen Create(CitizenDto citezenDto) {
+        System.out.println(citezenDto);
         Citizen citizen = modelMapper.map(citezenDto, Citizen.class);
         String hashedPassword = BCrypt.hashpw(citizen.getPassword(),BCrypt.gensalt());
         citizen.setPassword(hashedPassword);

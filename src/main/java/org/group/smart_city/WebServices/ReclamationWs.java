@@ -11,7 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 @RestController
-@RequestMapping("/reclamation")
+@RequestMapping("/api/reclamation")
 public class ReclamationWs {
     @Autowired
     private ReclamationService reclamationService;
@@ -20,12 +20,13 @@ public class ReclamationWs {
     JwtUtil jwtUtil;
 
     @PostMapping("/create")
-    public ResponseEntity<ApiResponse<Reclamation>> createEmployee(@RequestBody EmployeeDto employeeDto, @RequestHeader("Authorization") String token) {
+    public ResponseEntity<ApiResponse<Reclamation>> createReclamation(@RequestBody ReclamationDto reclamationDto, @RequestHeader("Authorization") String token) {
         if(!jwtUtil.validateToken(token)){
             ApiResponse<Reclamation> unauthorizedResponse = new ApiResponse<>(401, "Unauthorized", null);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(unauthorizedResponse);
         }
-        ApiResponse<Reclamation> response = new ApiResponse<>(200, "Employee Created successfully", null);
+        Reclamation reclamation = reclamationService.create(reclamationDto);
+        ApiResponse<Reclamation> response = new ApiResponse<>(200, "Reclamation Created successfully", reclamation);
         return ResponseEntity.ok(response);
     }
 
@@ -48,7 +49,6 @@ public class ReclamationWs {
             ApiResponse<Reclamation> unauthorizedResponse = new ApiResponse<>(401, "Unauthorized", null);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(unauthorizedResponse);
         }
-        // Add logic to update an employee
         Reclamation reclamation = reclamationService.Update(id, reclamationDto);
         if (reclamation == null) {
             return ResponseEntity.notFound().build();

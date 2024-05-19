@@ -14,6 +14,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 
 public class ServiceProviderImp implements ServiceProviderService {
@@ -57,5 +59,10 @@ public class ServiceProviderImp implements ServiceProviderService {
     public void Delete(String id) {
         if(this.getById(id) != null)
             serviceProviderRepository.deleteById(id);
+    }
+    @Override
+    public List<ServiceProvider> getAll() {
+        System.out.println("getting all service providers");
+        return serviceProviderRepository.findAll();
     }
 }

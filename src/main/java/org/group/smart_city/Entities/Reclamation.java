@@ -16,11 +16,11 @@ import java.util.List;
 public class Reclamation {
     @Id
     private String id;
-    private String titre;
+    private String title;
     private String description;
-    private String statut;
-    private String localisation;
-    private int priorite;
+    private String status;
+    private String localization;
+    private int priority;
     private List<String> media;
     @DBRef
     private ServiceProvider serviceProvider;

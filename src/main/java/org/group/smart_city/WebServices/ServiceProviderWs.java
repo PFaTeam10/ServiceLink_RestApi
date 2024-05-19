@@ -10,8 +10,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/serviceprovider")
+@RequestMapping("/api/serviceprovider")
 public class ServiceProviderWs {
     @Autowired
     private ServiceProviderImp serviceProviderImp;
@@ -67,5 +69,16 @@ public class ServiceProviderWs {
         // Add logic to delete an employee
         serviceProviderImp.Delete(id);
         return ResponseEntity.ok(new ApiResponse<>(200, "ServiceProvider deleted successfully", id));
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<ApiResponse<List<ServiceProvider>>> GetAll(@RequestHeader("Authorization") String token) {
+        if(!jwtUtil.validateToken(token)){
+            ApiResponse<List<ServiceProvider>> unauthorizedResponse = new ApiResponse<>(401, "Unauthorized", null);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(unauthorizedResponse);
+        }
+        // Add logic to delete an employee
+        List<ServiceProvider> serviceProviders = serviceProviderImp.getAll();
+        return ResponseEntity.ok(new ApiResponse<>(200, "ServiceProviders list ", serviceProviders));
     }
 }
