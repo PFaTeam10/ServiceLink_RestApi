@@ -23,7 +23,7 @@ import java.util.List;
 public class GroupServiceImp implements GroupService {
     @Autowired
     private GroupRepository groupRepository;
-    @Autowired
+
     ModelMapper modelMapper = new ModelMapper();
 
 

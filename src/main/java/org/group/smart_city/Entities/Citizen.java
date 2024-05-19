@@ -12,8 +12,6 @@ import java.util.Date;
 @NoArgsConstructor
 @ToString
 @Builder
-
-
 public class Citizen  {
     @Id
     private String id;

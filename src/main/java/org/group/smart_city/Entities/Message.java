@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
 
-@Document(collection = "MessageDto")
+@Document(collection = "Message")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,8 +19,7 @@ public class Message {
     @DBRef
     private Citizen citizen;
     @DBRef
-    private Group group;
+    private ServiceProvider serviceProvider;
     private String message;
     private Date timestamp;
-    private String attachmentUrl;
 }
