@@ -7,7 +7,8 @@ import org.group.smart_city.Entities.ServiceProvider;
 import java.util.List;
 
 public interface ServiceProviderService {
-    ServiceProvider create(ServiceProviderDto serviceProviderDto);
+    ServiceProvider Create(ServiceProviderDto serviceProviderDto);
+     ServiceProvider Authenticate(ServiceProviderDto serviceProviderDto);
 
     ServiceProvider getById(String id);
 

@@ -1,7 +1,9 @@
 package org.group.smart_city.Service.Implementations;
 
+import org.group.smart_city.Dto.CitizenDto;
 import org.group.smart_city.Dto.ReclamationDto;
 import org.group.smart_city.Dto.ServiceProviderDto;
+import org.group.smart_city.Entities.Citizen;
 import org.group.smart_city.Entities.Reclamation;
 import org.group.smart_city.Entities.ServiceProvider;
 import org.group.smart_city.Exceptions.AppException;
@@ -12,6 +14,7 @@ import org.group.smart_city.Service.Interfaces.ServiceProviderService;
 import org.group.smart_city.Utils.JwtUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,19 +29,29 @@ public class ServiceProviderImp implements ServiceProviderService {
     JwtUtil jwtUtil;
     @Autowired
     ModelMapper modelMapper;
-    @Override
-    public ServiceProvider create(ServiceProviderDto serviceProviderDto) {
-        if (serviceProviderDto == null) {
-            throw new IllegalArgumentException("serviceProviderDto must not be null");
-        }
-        ServiceProvider serviceProvider = modelMapper.map(serviceProviderDto, ServiceProvider.class);
-        if (serviceProvider == null) {
-            throw new AppException("Mapping from serviceProviderDto to serviceProvider failed");
-        }
 
+
+    @Override
+    public ServiceProvider Create(ServiceProviderDto serviceProviderDto) {
+        System.out.println(serviceProviderDto);
+        ServiceProvider serviceProvider = modelMapper.map(serviceProviderDto, ServiceProvider.class);
+        String hashedPassword = BCrypt.hashpw(serviceProvider.getPassword(),BCrypt.gensalt());
+        serviceProvider.setPassword(hashedPassword);
         return serviceProviderRepository.save(serviceProvider);
     }
+    @Override
+    public ServiceProvider Authenticate(ServiceProviderDto serviceProviderDto) {
+        ServiceProvider serviceProvider   = serviceProviderRepository.findServiceProviderByEmail(serviceProviderDto.getEmail());
+        System.out.println("serviceProviderDto : " + serviceProviderDto);
+        if (serviceProvider == null) {
+            throw new AppException("No User found with this email");
+        }
 
+        if (BCrypt.checkpw(serviceProviderDto.getPassword(), serviceProvider.getPassword())) {
+            return serviceProvider;
+        }
+        throw new AppException("Password Incorrect");
+    }
     @Override
     public ServiceProvider getById(String id) {
         return serviceProviderRepository.findById(id).orElseThrow(()

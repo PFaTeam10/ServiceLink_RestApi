@@ -20,6 +20,7 @@ public class ServiceProvider {
     private String email;
     private String phoneNumber;
     private String address;
+    private String password;
     @DBRef
     public ServiceType serviceType;
     @DBRef
