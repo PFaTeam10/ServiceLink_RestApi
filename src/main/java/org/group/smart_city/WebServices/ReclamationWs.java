@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/reclamation")
 public class ReclamationWs {
@@ -66,5 +69,14 @@ public class ReclamationWs {
         // Add logic to delete an employee
         reclamationService.Delete(id);
         return ResponseEntity.ok(new ApiResponse<>(200, "reclamation deleted successfully", id));
+    }
+    @GetMapping("/serviceprovider/{id}")
+    public ResponseEntity<ApiResponse<List<Reclamation>>> ReportsByService(@PathVariable("id") String id,@RequestHeader("Authorization") String token) {
+        if(!jwtUtil.validateToken(token)){
+            ApiResponse<List<Reclamation>> unauthorizedResponse = new ApiResponse<>(401, "Unauthorized", null);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(unauthorizedResponse);
+        }
+        List<Reclamation> reclamations = reclamationService.GetByServiceProvider(id);
+        return ResponseEntity.ok(new ApiResponse<>(200, "reclamation List", reclamations));
     }
 }
