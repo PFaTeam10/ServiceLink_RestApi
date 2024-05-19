@@ -41,7 +41,9 @@ public class ChatController {
     @MessageMapping("/join")
     @SendTo("/chatroom/public")
     public List<Message> join(@Payload String id){
+        System.out.println("id service : "+id);
         ServiceProvider serviceProvider = serviceProviderService.getById(id);
+        System.out.println("serviceProvider : "+serviceProvider);
         List<Message> messageList = messageService.GetAllByServiceProvider(serviceProvider);
 
         return messageList;
