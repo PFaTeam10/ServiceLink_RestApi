@@ -79,4 +79,14 @@ public class ReclamationWs {
         List<Reclamation> reclamations = reclamationService.GetByServiceProvider(id);
         return ResponseEntity.ok(new ApiResponse<>(200, "reclamation List", reclamations));
     }
+    @GetMapping("/serviceprovider")
+    public ResponseEntity<ApiResponse<List<Reclamation>>> ReportsByService(@RequestHeader("Authorization") String token) {
+        if(!jwtUtil.validateToken(token)){
+            ApiResponse<List<Reclamation>> unauthorizedResponse = new ApiResponse<>(401, "Unauthorized", null);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(unauthorizedResponse);
+        }
+        String idService = jwtUtil.getIdFromToken(token);
+        List<Reclamation> reclamations = reclamationService.GetByServiceProvider(idService);
+        return ResponseEntity.ok(new ApiResponse<>(200, "reclamation List", reclamations));
+    }
 }
