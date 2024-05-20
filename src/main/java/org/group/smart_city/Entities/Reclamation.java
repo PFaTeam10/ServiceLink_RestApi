@@ -19,7 +19,7 @@ public class Reclamation {
     private String id;
     private String title;
     private String description;
-    private String status;
+    private int status;
     private String localization;
     private int priority;
     private List<String> media;
