@@ -38,8 +38,8 @@ public class ServiceProviderWs {
     public ResponseEntity<ApiResponse<String>> Login(@RequestBody ServiceProviderDto serviceProviderDto) {
         ServiceProvider se = serviceProviderService.Authenticate(serviceProviderDto);
         System.out.println("serviceProviderDto : " + serviceProviderDto);
-        String token = jwtUtil.generateToken(serviceProviderDto.getId());
-        System.out.println("generated : " + token);
+        String token = jwtUtil.generateToken(se.getId());
+        System.out.println("generated : " + token + " of id : " + se.getId());
         ApiResponse<String> response = new ApiResponse<>(200, "serviceProviderDto Logged in successfully", token);
         return ResponseEntity.ok(response);
     }

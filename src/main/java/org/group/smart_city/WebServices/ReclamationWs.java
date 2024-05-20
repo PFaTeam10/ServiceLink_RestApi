@@ -86,6 +86,7 @@ public class ReclamationWs {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(unauthorizedResponse);
         }
         String idService = jwtUtil.getIdFromToken(token);
+        System.out.println(idService);
         List<Reclamation> reclamations = reclamationService.GetByServiceProvider(idService);
         return ResponseEntity.ok(new ApiResponse<>(200, "reclamation List", reclamations));
     }
