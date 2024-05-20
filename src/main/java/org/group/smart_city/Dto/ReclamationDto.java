@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.group.smart_city.Entities.ServiceProvider;
 
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -21,4 +22,5 @@ public class ReclamationDto {
     private int priority;
     private List<String> media;
     private ServiceProvider serviceProvider;
+    private Date date;
 }

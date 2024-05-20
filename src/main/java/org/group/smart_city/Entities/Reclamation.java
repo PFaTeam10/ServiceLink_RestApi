@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Date;
 import java.util.List;
 
 @Document(collection = "Reclamation")
@@ -24,4 +25,5 @@ public class Reclamation {
     private List<String> media;
     @DBRef
     private ServiceProvider serviceProvider;
+    Date date;
 }
