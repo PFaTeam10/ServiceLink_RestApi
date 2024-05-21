@@ -53,7 +53,8 @@ public class ReclamationImp implements ReclamationService {
 
         // Update project object with fields from projectDto
         modelMapper.map(reclamationDto, reclamation);
-        return reclamation;
+        System.out.println("updated");
+        return reclamationRepository.save(reclamation);
     }
 
     @Override

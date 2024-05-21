@@ -90,5 +90,5 @@ public class ReclamationWs {
         System.out.println(idService);
         List<Reclamation> reclamations = reclamationService.GetByServiceProvider(idService);
         return ResponseEntity.ok(new ApiResponse<>(200, "reclamation List", reclamations));
-    }²
+    }
 }
