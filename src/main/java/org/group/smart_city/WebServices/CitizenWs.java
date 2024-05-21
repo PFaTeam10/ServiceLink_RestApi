@@ -2,6 +2,7 @@ package org.group.smart_city.WebServices;
 
 import org.group.smart_city.Dto.CitizenDto;
 import org.group.smart_city.Entities.Citizen;
+import org.group.smart_city.Entities.Reclamation;
 import org.group.smart_city.Response.ApiResponse;
 import org.group.smart_city.Service.Interfaces.CitizenService;
 import org.group.smart_city.Utils.JwtUtil;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/citizen")
@@ -39,7 +42,7 @@ public class CitizenWs {
             ApiResponse<Citizen> notFoundResponse = new ApiResponse<>(401, "UnAuthorized", null);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(notFoundResponse);
         }
-        Citizen citizen = citizenService.Update(id, citizenDto);
+        Citizen citizen = citizenService.Update(citizenDto);
         ApiResponse<Citizen> response = new ApiResponse<>(200, "Citizen updated successfully", citizen);
         return ResponseEntity.ok(response);
     }
@@ -57,11 +60,35 @@ public class CitizenWs {
 
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<Citizen>> GetCitizenById(@PathVariable String id, @RequestHeader("Authorization") String token) {
-        Citizen citizen = citizenService.GetById(id);
+
         if(!jwtUtil.validateToken(token)){
             ApiResponse<Citizen> notFoundResponse = new ApiResponse<>(404, "UnAuthorized", null);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(notFoundResponse);
         }
+        Citizen citizen = citizenService.GetById(id);
+        ApiResponse<Citizen> apiResponse = new ApiResponse<>(200, "Citizen found", citizen);
+        return ResponseEntity.ok(apiResponse);
+    }
+
+    @PutMapping("/")
+    public ResponseEntity<ApiResponse<Citizen>> updateCitizen(@RequestBody CitizenDto citizenDto,@RequestHeader("Authorization") String token) {
+        if(!jwtUtil.validateToken(token)){
+            ApiResponse<Citizen> notFoundResponse = new ApiResponse<>(404, "UnAuthorized", null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(notFoundResponse);
+        }
+        Citizen citizen = citizenService.Update(citizenDto);
+        ApiResponse<Citizen> response = new ApiResponse<>(200, "Project updated successfully", citizen);
+        return ResponseEntity.ok(response);
+    }
+    @GetMapping("/get")
+    public ResponseEntity<ApiResponse<Citizen>> GetCitizenById(@RequestHeader("Authorization") String token) {
+
+        if(!jwtUtil.validateToken(token)){
+            ApiResponse<Citizen> notFoundResponse = new ApiResponse<>(404, "UnAuthorized", null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(notFoundResponse);
+        }
+        String idCitizen = jwtUtil.getIdFromToken(token);
+       Citizen citizen = citizenService.GetById(idCitizen);
         ApiResponse<Citizen> apiResponse = new ApiResponse<>(200, "Citizen found", citizen);
         return ResponseEntity.ok(apiResponse);
     }

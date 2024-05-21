@@ -41,8 +41,8 @@ public class CitizenServiceImp implements CitizenService {
     }
 
     @Override
-    public Citizen Update(String id, CitizenDto citizenDto) {
-        Citizen citizen = citizenRepository.findById(id).orElseThrow(() ->
+    public Citizen Update(CitizenDto citizenDto) {
+        Citizen citizen = citizenRepository.findById(citizenDto.getId()).orElseThrow(() ->
                 new AppException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage()));
         modelMapper.map(citizenDto,citizen);
         citizenRepository.save(citizen);
