@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
 
-public interface MessageRepository extends MongoRepository<Message,String> {
+public interface    MessageRepository extends MongoRepository<Message,String> {
     public List<Message> getMessagesByServiceProvider(ServiceProvider serviceProvider);
 
     public List<Message> findAllByCitizen(Citizen citizen);
