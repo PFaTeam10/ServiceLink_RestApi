@@ -25,5 +25,7 @@ public class Reclamation {
     private List<String> media;
     @DBRef
     private ServiceProvider serviceProvider;
+    @DBRef
+    private Citizen citizen;
     Date date;
 }
