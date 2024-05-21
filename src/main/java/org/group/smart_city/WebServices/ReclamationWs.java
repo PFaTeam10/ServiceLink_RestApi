@@ -28,7 +28,8 @@ public class ReclamationWs {
             ApiResponse<Reclamation> unauthorizedResponse = new ApiResponse<>(401, "Unauthorized", null);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(unauthorizedResponse);
         }
-        Reclamation reclamation = reclamationService.create(reclamationDto);
+        String idCitizen = jwtUtil.getIdFromToken(token);
+        Reclamation reclamation = reclamationService.create(reclamationDto,idCitizen);
         ApiResponse<Reclamation> response = new ApiResponse<>(200, "Reclamation Created successfully", reclamation);
         return ResponseEntity.ok(response);
     }
@@ -88,5 +89,5 @@ public class ReclamationWs {
         String idService = jwtUtil.getIdFromToken(token);
         List<Reclamation> reclamations = reclamationService.GetByServiceProvider(idService);
         return ResponseEntity.ok(new ApiResponse<>(200, "reclamation List", reclamations));
-    }
+    }²
 }

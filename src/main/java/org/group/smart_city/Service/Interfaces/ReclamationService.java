@@ -6,7 +6,7 @@ import org.group.smart_city.Entities.Reclamation;
 import java.util.List;
 
 public interface ReclamationService {
-    Reclamation create(ReclamationDto reclamationDto);
+    Reclamation create(ReclamationDto reclamationDto,String idCitizen);
     Reclamation getById(String id);
     Reclamation Update(String id, ReclamationDto reclamationDto);
     void Delete(String id);

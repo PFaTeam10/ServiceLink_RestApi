@@ -9,4 +9,6 @@ import java.util.List;
 public interface CitizenRepository  extends MongoRepository<Citizen,String> {
     public Citizen findCitizenById(String Id);
     public Citizen findCitizenByEmail(String email);
+
+
 }
