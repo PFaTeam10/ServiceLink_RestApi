@@ -12,6 +12,8 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class CitizenServiceImp implements CitizenService {
@@ -55,6 +57,11 @@ public class CitizenServiceImp implements CitizenService {
         Citizen citizen = citizenRepository.findById(id).orElseThrow(() ->
                 new AppException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage()));
         citizenRepository.deleteById(citizen.getId());
+    }
+
+    @Override
+    public List<Citizen> GetAll() {
+        return citizenRepository.findAll();
     }
 
     @Override

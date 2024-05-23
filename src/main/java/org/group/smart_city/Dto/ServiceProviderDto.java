@@ -23,4 +23,6 @@ public class ServiceProviderDto {
     private String phoneNumber;
     private String address;
     private String password;
+    private String image;
+    private String description;
 }

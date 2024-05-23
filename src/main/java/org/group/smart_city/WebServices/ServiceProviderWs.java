@@ -104,4 +104,14 @@ public class ServiceProviderWs {
         List<ServiceProvider> serviceProviders = serviceProviderImp.getAll();
         return ResponseEntity.ok(new ApiResponse<>(200, "ServiceProviders list ", serviceProviders));
     }
+    @GetMapping("/")
+    public ResponseEntity<ApiResponse<ServiceProvider>> GetServiceProvider(@RequestHeader("Authorization") String token) {
+        if(!jwtUtil.validateToken(token)){
+            ApiResponse<ServiceProvider> unauthorizedResponse = new ApiResponse<>(401, "Unauthorized", null);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(unauthorizedResponse);
+        }
+        String id = jwtUtil.getIdFromToken(token);
+        ServiceProvider serviceProvider = serviceProviderImp.getById(id);
+        return ResponseEntity.ok(new ApiResponse<>(200, "ServiceProvider found ", serviceProvider));
+    }
 }

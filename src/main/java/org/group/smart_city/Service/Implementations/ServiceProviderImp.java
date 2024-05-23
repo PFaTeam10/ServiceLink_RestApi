@@ -78,4 +78,6 @@ public class ServiceProviderImp implements ServiceProviderService {
         System.out.println("getting all service providers");
         return serviceProviderRepository.findAll();
     }
+
+
 }

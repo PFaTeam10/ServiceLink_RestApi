@@ -92,5 +92,15 @@ public class CitizenWs {
         ApiResponse<Citizen> apiResponse = new ApiResponse<>(200, "Citizen found", citizen);
         return ResponseEntity.ok(apiResponse);
     }
-
+    @GetMapping("/all")
+    public ResponseEntity<ApiResponse<List<Citizen>>> GetAllCitizens(@RequestHeader("Authorization") String token) {
+        if(!jwtUtil.validateToken(token)){
+            ApiResponse<List<Citizen>> notFoundResponse = new ApiResponse<>(404, "UnAuthorized", null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(notFoundResponse);
+        }
+        System.out.println("hna hhhhhhhhhhh");
+        List<Citizen> citizenList = citizenService.GetAll();
+        ApiResponse<List<Citizen>> apiResponse = new ApiResponse<>(200, "Citizens list found", citizenList);
+        return ResponseEntity.ok(apiResponse);
+    }
  }
