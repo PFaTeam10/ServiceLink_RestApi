@@ -8,6 +8,6 @@ public interface CitizenService {
     public Citizen GetById(String id);
     public Citizen Authenticate(CitizenDto citizenDto);
     public Citizen Create(CitizenDto citizenDto);
-    public Citizen Update(String id, CitizenDto citizenDto);
+    public Citizen Update(CitizenDto citizenDto);
     public void Delete(String id);
 }
