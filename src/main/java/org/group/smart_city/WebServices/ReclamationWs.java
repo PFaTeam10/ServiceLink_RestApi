@@ -71,24 +71,35 @@ public class ReclamationWs {
         reclamationService.Delete(id);
         return ResponseEntity.ok(new ApiResponse<>(200, "reclamation deleted successfully", id));
     }
-    @GetMapping("/serviceprovider/{id}")
-    public ResponseEntity<ApiResponse<List<Reclamation>>> ReportsByService(@PathVariable("id") String id,@RequestHeader("Authorization") String token) {
-        if(!jwtUtil.validateToken(token)){
-            ApiResponse<List<Reclamation>> unauthorizedResponse = new ApiResponse<>(401, "Unauthorized", null);
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(unauthorizedResponse);
-        }
-        List<Reclamation> reclamations = reclamationService.GetByServiceProvider(id);
-        return ResponseEntity.ok(new ApiResponse<>(200, "reclamation List", reclamations));
-    }
-    @GetMapping("/serviceprovider")
-    public ResponseEntity<ApiResponse<List<Reclamation>>> ReportsByService(@RequestHeader("Authorization") String token) {
+    @GetMapping("/serviceprovider/ignored")
+    public ResponseEntity<ApiResponse<List<Reclamation>>> ReportsByServiceRejected(@RequestHeader("Authorization") String token) {
         if(!jwtUtil.validateToken(token)){
             ApiResponse<List<Reclamation>> unauthorizedResponse = new ApiResponse<>(401, "Unauthorized", null);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(unauthorizedResponse);
         }
         String idService = jwtUtil.getIdFromToken(token);
-        System.out.println(idService);
-        List<Reclamation> reclamations = reclamationService.GetByServiceProvider(idService);
+        List<Reclamation> reclamations = reclamationService.GetByServiceProviderIgnored(idService);
         return ResponseEntity.ok(new ApiResponse<>(200, "reclamation List", reclamations));
     }
+    @GetMapping("/serviceprovider/accepted")
+    public ResponseEntity<ApiResponse<List<Reclamation>>> ReportsByServiceAccepted(@RequestHeader("Authorization") String token) {
+        if(!jwtUtil.validateToken(token)){
+            ApiResponse<List<Reclamation>> unauthorizedResponse = new ApiResponse<>(401, "Unauthorized", null);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(unauthorizedResponse);
+        }
+        String idService = jwtUtil.getIdFromToken(token);
+        List<Reclamation> reclamations = reclamationService.GetByServiceProviderAccepted(idService);
+        return ResponseEntity.ok(new ApiResponse<>(200, "reclamation List", reclamations));
+    }
+//    @GetMapping("/serviceprovider")
+//    public ResponseEntity<ApiResponse<List<Reclamation>>> ReportsByService(@RequestHeader("Authorization") String token) {
+//        if(!jwtUtil.validateToken(token)){
+//            ApiResponse<List<Reclamation>> unauthorizedResponse = new ApiResponse<>(401, "Unauthorized", null);
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(unauthorizedResponse);
+//        }
+//        String idService = jwtUtil.getIdFromToken(token);
+//        System.out.println(idService);
+//        List<Reclamation> reclamations = reclamationService.GetByServiceProvider(idService);
+//        return ResponseEntity.ok(new ApiResponse<>(200, "reclamation List", reclamations));
+//    }
 }
