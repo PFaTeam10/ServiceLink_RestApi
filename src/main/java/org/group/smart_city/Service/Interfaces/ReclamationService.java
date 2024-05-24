@@ -10,6 +10,6 @@ public interface ReclamationService {
     Reclamation getById(String id);
     Reclamation Update(String id, ReclamationDto reclamationDto);
     void Delete(String id);
-    public List<Reclamation> GetByServiceProvider(String id);
-
+    public List<Reclamation> GetByServiceProviderAccepted(String id);
+    public List<Reclamation> GetByServiceProviderIgnored(String id);
 }

@@ -13,6 +13,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -64,7 +65,29 @@ public class ReclamationImp implements ReclamationService {
     }
 
     @Override
-    public List<Reclamation> GetByServiceProvider(String id) {
-        return reclamationRepository.findAllByServiceProviderId(id);
+    public List<Reclamation> GetByServiceProviderAccepted(String id) {
+        List<Reclamation> reclamations = reclamationRepository.findAllByServiceProviderId(id);
+        List<Reclamation> reclamationListAcc = new ArrayList<>();
+
+        for (Reclamation rec : reclamations) {
+            if (rec.getStatus() != -1) {
+                reclamationListAcc.add(rec);
+            }
+        }
+
+        return reclamationListAcc;
+    }
+    @Override
+    public List<Reclamation> GetByServiceProviderIgnored(String id) {
+        List<Reclamation> reclamations = reclamationRepository.findAllByServiceProviderId(id);
+        List<Reclamation> reclamationListAcc = new ArrayList<>();
+
+        for (Reclamation rec : reclamations) {
+            if (rec.getStatus() == -1) {
+                reclamationListAcc.add(rec);
+            }
+        }
+
+        return reclamationListAcc;
     }
 }

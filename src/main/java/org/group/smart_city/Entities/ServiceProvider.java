@@ -21,6 +21,8 @@ public class ServiceProvider {
     private String phoneNumber;
     private String address;
     private String password;
+    private String image;
+    private String description;
     @DBRef
     public ServiceType serviceType;
     @DBRef
