@@ -47,7 +47,7 @@ public class MessageServiceImp implements MessageService {
 //        return messageRepository.save(message);
 //    }
     public Message Create(MessageDto messageDto) {
-        if(!messageDto.isCitizenSender()){
+        if(!messageDto.getCitizenSender()){
             messageDto.setCitizen(null);
         }
         Message message = modelMapper.map(messageDto, Message.class);

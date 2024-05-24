@@ -18,7 +18,8 @@ public class MessageDto {
     private Citizen citizen;
     private ServiceProvider serviceProvider;
     private String message;
+    private Boolean citizenSender;
     private Date timestamp;
-    private boolean citizenSender;
+
 
 }
