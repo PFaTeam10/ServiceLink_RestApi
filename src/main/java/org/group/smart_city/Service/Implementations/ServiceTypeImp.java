@@ -15,6 +15,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 
 public class ServiceTypeImp implements ServiceTypeService {
@@ -57,4 +59,5 @@ public class ServiceTypeImp implements ServiceTypeService {
         if(this.getById(id) != null)
             serviceTypeRepository.deleteById(id);
     }
+
 }

@@ -12,4 +12,6 @@ public interface ReclamationService {
     void Delete(String id);
     public List<Reclamation> GetByServiceProviderAccepted(String id);
     public List<Reclamation> GetByServiceProviderIgnored(String id);
+    public List<Reclamation> GetAllByCitizen(String id);
+
 }

@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.Path;
 import java.util.List;
 
 @RestController
@@ -102,4 +103,14 @@ public class ReclamationWs {
 //        List<Reclamation> reclamations = reclamationService.GetByServiceProvider(idService);
 //        return ResponseEntity.ok(new ApiResponse<>(200, "reclamation List", reclamations));
 //    }
+    @GetMapping("/citizen")
+    public ResponseEntity<ApiResponse<List<Reclamation>>> ReportsByCitizen( @RequestHeader("Authorization") String token) {
+        if(!jwtUtil.validateToken(token)){
+            ApiResponse<List<Reclamation>> unauthorizedResponse = new ApiResponse<>(401, "Unauthorized", null);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(unauthorizedResponse);
+        }
+        String idCitizen = jwtUtil.getIdFromToken(token);
+        List<Reclamation> reclamations = reclamationService.GetAllByCitizen(idCitizen);
+        return ResponseEntity.ok(new ApiResponse<>(200, "reclamations List", reclamations));
+    }
 }

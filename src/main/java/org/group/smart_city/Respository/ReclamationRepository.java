@@ -11,4 +11,5 @@ import java.util.List;
 @Repository
 public interface ReclamationRepository extends MongoRepository<Reclamation,String> {
     List<Reclamation> findAllByServiceProviderId(String id);
+    List<Reclamation> findAllByCitizenId(String id);
 }

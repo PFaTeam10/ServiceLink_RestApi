@@ -90,4 +90,10 @@ public class ReclamationImp implements ReclamationService {
 
         return reclamationListAcc;
     }
+    @Override
+    public List<Reclamation> GetAllByCitizen(String id)
+    {
+        return reclamationRepository.findAllByCitizenId(id);
+    }
+
 }
