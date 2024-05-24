@@ -72,7 +72,7 @@ public class ReclamationWs {
         return ResponseEntity.ok(new ApiResponse<>(200, "reclamation deleted successfully", id));
     }
     @GetMapping("/serviceprovider/ignored")
-    public ResponseEntity<ApiResponse<List<Reclamation>>> ReportsByServiceRejected(@RequestHeader("Authorization") String token) {
+        public ResponseEntity<ApiResponse<List<Reclamation>>> ReportsByServiceRejected(@RequestHeader("Authorization") String token) {
         if(!jwtUtil.validateToken(token)){
             ApiResponse<List<Reclamation>> unauthorizedResponse = new ApiResponse<>(401, "Unauthorized", null);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(unauthorizedResponse);

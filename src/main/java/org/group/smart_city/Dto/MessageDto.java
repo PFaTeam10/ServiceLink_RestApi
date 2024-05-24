@@ -19,6 +19,6 @@ public class MessageDto {
     private ServiceProvider serviceProvider;
     private String message;
     private Date timestamp;
-    private boolean isCitizenSender;
+    private boolean citizenSender;
 
 }

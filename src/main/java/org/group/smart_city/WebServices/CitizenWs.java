@@ -35,6 +35,13 @@ public class CitizenWs {
         ApiResponse<String> response = new ApiResponse<>(200, "Citizen Logged in successfully", token);
         return ResponseEntity.ok(response);
     }
+    @GetMapping("/getid")
+    public ResponseEntity<ApiResponse<String>> getID(@RequestHeader("Authorization") String token) {
+
+        String idCitizen = jwtUtil.getIdFromToken(token);
+        ApiResponse<String> response = new ApiResponse<>(200, "idCitizen successfull", idCitizen);
+        return ResponseEntity.ok(response);
+    }
 
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<Citizen>> Update(@PathVariable String id, @RequestBody CitizenDto citizenDto,@RequestHeader("Authorization") String token) {
