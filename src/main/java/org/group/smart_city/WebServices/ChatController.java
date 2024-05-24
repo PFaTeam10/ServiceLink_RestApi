@@ -31,9 +31,9 @@ public class ChatController {
     @MessageMapping("/message")
     @SendTo("/chatroom/public")
     public Message receiveMessage(@Payload MessageDto messageDto){
-
+        System.out.println("receiveMessage : "+messageDto);
         if(messageDto.getMessage()!=null){
-            Message save = messageService.Create(messageDto);
+            Message save = messageService.Create(messageDto); 
             return save;
         }
         return null;
@@ -41,7 +41,7 @@ public class ChatController {
     @MessageMapping("/join")
     @SendTo("/chatroom/public")
     public List<Message> join(@Payload String id){
-        System.out.println("id service : "+id);
+        System.out.println("join id service : "+id);
         ServiceProvider serviceProvider = serviceProviderService.getById(id);
         System.out.println("serviceProvider : "+serviceProvider);
         List<Message> messageList = messageService.GetAllByServiceProvider(serviceProvider);

@@ -22,4 +22,5 @@ public class Message {
     private ServiceProvider serviceProvider;
     private String message;
     private Date timestamp;
+    private boolean isCitizenSender;
 }
