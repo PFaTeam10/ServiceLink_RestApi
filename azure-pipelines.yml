@@ -13,8 +13,7 @@ steps:
 - task: Maven@3
   displayName: 'Maven ./pom.xml'
   inputs:
-    mavenPomFile: './pom.xml'
-    codeCoverageToolOption: Cobertura
+    mavenPomFile: './pom.xml' 
 
 - task: CopyFiles@2
   displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
